@@ -347,6 +347,8 @@ module Graphics.UI.Gtk.Abstract.Widget (
 #endif
   widgetSetVAlign,
 #endif
+  widgetFreezeChildNotify,
+  widgetThawChildNotify,
 
 -- * Attributes
   widgetName,
@@ -3674,6 +3676,16 @@ widgetSetVAlign self align =
     (toWidget self)
     (fromIntegral $ fromEnum align)
 #endif
+
+widgetFreezeChildNotify :: WidgetClass self => self -> IO ()
+widgetFreezeChildNotify self =
+  {# call gtk_widget_freeze_child_notify #}
+    (toWidget self)
+
+widgetThawChildNotify :: WidgetClass self => self -> IO ()
+widgetThawChildNotify self =
+  {# call gtk_widget_thaw_child_notify #}
+    (toWidget self)
 
 --------------------
 -- Signals
